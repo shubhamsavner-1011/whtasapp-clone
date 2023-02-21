@@ -4,13 +4,13 @@ import { ImgPath } from "../../constant/Images";
 import { styled } from "@mui/material/styles";
 
 
-const SubTitle = styled("Typography")(() => ({
+const SubTitle = styled("div")(() => ({
     fontSize: "14px",
     color: " #667781",
     fontWeight: "500",
   }));
   
-  const Title = styled("Typography")(() => ({
+  const Title = styled("div")(() => ({
     fontSize: "34px",
     color: " #41525d",
     fontWeight: "400",

@@ -20,7 +20,7 @@ export const OrderList = () => {
         <List>
           {listData.map((item, index) => {
             return (
-              <ListItem>
+              <ListItem key={index}>
                 <span style={{ marginRight: "12px", color: "#3b4a54" }}>
                   {index+1} .
                 </span>

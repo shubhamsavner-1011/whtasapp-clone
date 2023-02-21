@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React from "react";
+import React, {useState } from "react";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
@@ -14,25 +14,25 @@ import ListItemText from "@mui/material/ListItemText";
 import { Header } from "./Header";
 import { MainDetails } from "./MainDetails";
 import { Avatar, ListItemIcon } from "@mui/material";
+import { Chating } from "./Chating";
 
 const drawerWidth = 440;
 
 const Time = styled("div")(() => ({
-    fontSize:'12px',
-    fontWeight:600,    
-    color:'#1fa855'
-  }));
+  fontSize: "12px",
+  fontWeight: 600,
+  color: "#1fa855",
+}));
 
-  const Badge = styled("div")(() => ({
-    fontSize:'12px',
-    fontWeight:600,
-    color:'white',    
-    backgroundColor:'#25d366',
-    borderRadius:'50%',
-    width:'20px',
-    textAlign:'center'
-
-  }));
+const Badge = styled("div")(() => ({
+  fontSize: "12px",
+  fontWeight: 600,
+  color: "white",
+  backgroundColor: "#25d366",
+  borderRadius: "50%",
+  width: "20px",
+  textAlign: "center",
+}));
 
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
   ({ theme, open }) => ({
@@ -40,7 +40,7 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
     height: "767px",
     backgroundColor: "#f0f1f1",
     borderBottom: "7px solid #25d366",
-    padding: theme.spacing(3),
+    // padding: theme.spacing(3),
     transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -66,6 +66,8 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 }));
 
 export const Dashboard = () => {
+  const [chat, setChat ] = useState(false);
+
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -83,32 +85,35 @@ export const Dashboard = () => {
         open={true}
       >
         <DrawerHeader>
-            <Header/>
+          <Header />
         </DrawerHeader>
         <Divider />
         <List>
           {["PlasementAdda", "Thoughtwin", "Testing"].map((text, index) => (
             <>
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-              <ListItemIcon>
-              <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" style={{cursor:'pointer'}}/>
-              </ListItemIcon>
-                <ListItemText primary={text} />
-               <Box>
-               <Time>7:13 Pm</Time>
-               <Badge>1</Badge>
-               </Box>
-
-              </ListItemButton>
-            </ListItem>
-            <Divider/>
+              <ListItem key={index} disablePadding onClick={()=> setChat(true)}>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <Avatar
+                      alt="Remy Sharp"
+                      src="/static/images/avatar/1.jpg"
+                      style={{ cursor: "pointer" }}
+                    />
+                  </ListItemIcon>
+                  <ListItemText primary={text} />
+                  <Box>
+                    <Time>7:13 Pm</Time>
+                    <Badge>1</Badge>
+                  </Box>
+                </ListItemButton>
+              </ListItem>
+              <Divider />
             </>
           ))}
         </List>
       </Drawer>
       <Main open={true}>
-       <MainDetails/>
+      {chat ? <Chating /> : <MainDetails />}
       </Main>
     </Box>
   );
