@@ -1,9 +1,10 @@
 import { Box, Typography, styled } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
 import AttachmentOutlinedIcon from "@mui/icons-material/AttachmentOutlined";
 import KeyboardVoiceIcon from "@mui/icons-material/KeyboardVoice";
 import { InputField } from "../InputField";
+import { getMessages } from "../../api/messageRequest";
 const message = [
   { incoming: "hello" },
   { outgoing: "hello" },
@@ -20,14 +21,27 @@ const IncomingMessage = styled(Typography)`
 `;
 const OutgoingMessage = styled(Typography)`
   padding: 10px;
-  background-color: #fff;
+  background-color: #b2ff9e;
   color: black;
   text-align: start;
   width: 400px;
   border-radius: 8px;
   margin-bottom: 10px;
 `;
-export const ChatingFooter = () => {
+export const ChatingFooter = ({user}) => {
+ 
+  useEffect(()=> {
+    const fetchMessages = async () => {
+      try {
+        const data = await  getMessages("63fe0b7d3a63cd23df10072b")
+        console.log(data, 'getMessage>>>>')
+      }
+      catch(error){
+        console.log(error)
+      }
+    }
+    fetchMessages()
+  })
   return (
     <>
       <Box
@@ -85,7 +99,7 @@ export const ChatingFooter = () => {
           />
         </Box>
         <Box>
-          <InputField placeholder="Type a message" />
+          <InputField placeholder="Type a message" user={user}/>
         </Box>
         <Box>
           <KeyboardVoiceIcon style={{ color: "#54656f", cursor: "pointer" }} />

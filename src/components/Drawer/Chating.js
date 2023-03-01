@@ -6,18 +6,18 @@ import Toolbar from "@mui/material/Toolbar";
 
 import { ChatingFooter } from "./ChatingFooter";
 import { ChatingHeader } from "./ChatingHeader";
-export const Chating = () => {
+export const Chating = ({user}) => {
   return (
     <div>
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
         <AppBar component="nav" style={{ backgroundColor: "#f0f1f1" }}>
           <Toolbar style={{marginLeft:'445px',justifyContent:'space-between'}}>
-            <ChatingHeader/>
+            <ChatingHeader user={user}/>
           </Toolbar>
         </AppBar>
         <Box component="main" sx={{ width: "100%" }}>
-            <ChatingFooter/>
+            <ChatingFooter user={user}/>
         </Box>
       </Box>
     </div>

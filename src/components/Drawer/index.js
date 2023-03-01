@@ -1,11 +1,11 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, {useState } from "react";
+import React, {useEffect, useState } from "react";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
 import List from "@mui/material/List";
-
+import Cookies from "js-cookie";
 import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
@@ -15,6 +15,8 @@ import { Header } from "./Header";
 import { MainDetails } from "./MainDetails";
 import { Avatar, ListItemIcon } from "@mui/material";
 import { Chating } from "./Chating";
+import { userChats } from "../../api/chatRequest";
+import { getUser, users } from "../../api/userRequest";
 
 const drawerWidth = 440;
 
@@ -67,7 +69,34 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 
 export const Dashboard = () => {
   const [chat, setChat ] = useState(false);
-
+  const [data, setData ] = useState();
+  const [user, setUser] = useState();
+//  const id = Cookies.get('id')
+ const handleOpen = (id) => {
+  setChat(true)
+  const getUserData = async () => {
+    try {
+      const user= await getUser(id) 
+      setUser(user)
+    }
+    catch (error){
+      console.log(error)
+    }
+  }
+  getUserData()
+ }
+  useEffect(()=> {
+    const getAllUser = async () => {
+      try {
+            const user= await users() 
+            setData(user)
+          }
+          catch (error){
+            console.log(error)
+          }
+    }
+    getAllUser();
+  }, [])
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -89,9 +118,10 @@ export const Dashboard = () => {
         </DrawerHeader>
         <Divider />
         <List>
-          {["PlasementAdda", "Thoughtwin", "Testing"].map((text, index) => (
+
+          {data?.map((text, index) => (
             <>
-              <ListItem key={index} disablePadding onClick={()=> setChat(true)}>
+              <ListItem key={index} disablePadding onClick={()=> handleOpen(text._id)}>
                 <ListItemButton>
                   <ListItemIcon>
                     <Avatar
@@ -100,7 +130,7 @@ export const Dashboard = () => {
                       style={{ cursor: "pointer" }}
                     />
                   </ListItemIcon>
-                  <ListItemText primary={text} />
+                  <ListItemText primary={text.username} />
                   <Box>
                     <Time>7:13 Pm</Time>
                     <Badge>1</Badge>
@@ -113,7 +143,7 @@ export const Dashboard = () => {
         </List>
       </Drawer>
       <Main open={true}>
-      {chat ? <Chating /> : <MainDetails />}
+      {chat ? <Chating user={user}/> : <MainDetails />}
       </Main>
     </Box>
   );

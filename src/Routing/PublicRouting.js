@@ -1,16 +1,17 @@
 
-// import React, {useEffect} from 'react';
-// import {useNavigate} from 'react-router-dom';
-// import Cookies from 'universal-cookie';
+import React, {useEffect} from 'react';
+import {useNavigate} from 'react-router-dom';
+import Cookies from 'js-cookie';
+import { URL } from '../constant';
+
 export const PublicRoute = ({Component, ...props}) => {
-	// const cookies = new Cookies();
-	// const navigate = useNavigate();
-	// const token = cookies.get('token');
-	// useEffect(() => {
-	// 	if (token) {
-	// 		navigate(-1);
-	// 	}
-	// }, []);
+	const navigate = useNavigate();
+	const token = Cookies.get('token');
+	useEffect(() => {
+		if (token) {
+			navigate(URL.HOME_PAGE);
+		}
+	}, []);
 	return (
 		<div>
 			<Component {...props} />

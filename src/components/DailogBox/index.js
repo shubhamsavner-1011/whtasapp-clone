@@ -1,9 +1,10 @@
 import React from "react";
-import { Box, Dialog, Grid, styled, Typography } from "@mui/material";
+import { Box, Button, Dialog, Grid, styled, Typography } from "@mui/material";
 import { OrderList } from "../List";
 import { Tutorial } from "../../containers/Tutorial";
 import { QrCode } from "../qrcode";
-
+import { useNavigate } from "react-router-dom";
+import { URL } from "../../constant";
 const DailogStyle = {
   maxHeight: "100%",
   height: "97%",
@@ -20,6 +21,13 @@ const SubHeading = styled(Typography)`
   margin-bottom: 50px;
 `;
 export const DailogBox = () => {
+  const navigate = useNavigate();
+  const handleLogin = () => {
+    navigate(URL.LOGIN_FORM);
+  };
+  const handleSignup = () => {
+    navigate(URL.REGISTER_PAGE);
+  };
   return (
     <Box>
       <Dialog
@@ -27,7 +35,7 @@ export const DailogBox = () => {
         BackdropProps={{ invisible: true }}
         open={true}
       >
-        <Grid container spacing={2} sx={{padding:'60px'}}>
+        <Grid container spacing={2} sx={{ padding: "60px" }}>
           <Grid item xs={6} md={8}>
             <Box>
               <SubHeading>Use WhatsApp on your computer</SubHeading>
@@ -36,12 +44,23 @@ export const DailogBox = () => {
           </Grid>
           <Grid item xs={6} md={4}>
             <Box>
-            <QrCode/>
+              <QrCode />
+            </Box>
+            <Box style={{ textAlign: "center", marginTop: "20px" }}>
+              <Button
+                style={{ color: "black", borderColor: "black", width: "100%" }}
+                onClick={handleLogin}
+                variant="outlined"
+              >
+                LOGIN
+              </Button>
+            </Box>
+            <Box>
+              <Button onClick={handleSignup}>Signup</Button>
             </Box>
           </Grid>
         </Grid>
-        <Tutorial/>
-      
+        <Tutorial />
       </Dialog>
     </Box>
   );

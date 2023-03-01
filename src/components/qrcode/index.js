@@ -10,7 +10,7 @@ console.log(data, '>>>>>', error)
   if (!data) return <div>loading...</div>;
   return (
     <div className="App">
-    <QRCode value="+91 7582950550" size="200" />
+    <QRCode value="+91 7582950550" size={200} />
   </div>
   )
 }

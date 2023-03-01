@@ -1,7 +1,10 @@
 import React from 'react'
+import { RegisterForm } from '../../containers/RegisterForm'
 
 export const Register = () => {
   return (
-    <div>Register</div>
+    <div>
+      <RegisterForm/>
+    </div>
   )
 }

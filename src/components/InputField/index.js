@@ -1,6 +1,8 @@
 import { Box, styled, TextField } from "@mui/material";
 import React, { useState } from "react";
 import SendIcon from '@mui/icons-material/Send';
+import { createMessage } from "../../api/messageRequest";
+import Cookies from "js-cookie";
 
 
 
@@ -47,14 +49,15 @@ const Input = styled(TextField)({
     },
   },
 });
-export const InputField = ({ placeholder }) => {
+export const InputField = ({ placeholder, user }) => {
   const [data, setData] = useState()
-
+  const id = Cookies.get('id')
   const handleChange = (val) => {
    setData(val)
   };
-  const handleSubmit = () => {
-    console.log(">>>>>>>>", data);
+  const handleSubmit = async () => {
+    const Message = await createMessage(data, id, user?.id )
+    console.log(Message, 'message')
   }
   return (
     <div>
